@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Qt アプリケーションの作成 &mdash; PySide samples 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PySide samples 0.0.1 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="index.html">PySide samples 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Qt アプリケーションの作成</a><ul>
+<li><a class="reference internal" href="#qapplication">QApplication</a><ul>
+<li><a class="reference internal" href="#id1">Qt アプリケーションの終了</a></li>
+<li><a class="reference internal" href="#id2">シグナル と スロット</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">メインウィンドウの作成</a><ul>
+<li><a class="reference internal" href="#id4">メニューの追加</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/application.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="qt">
+<h1>Qt アプリケーションの作成<a class="headerlink" href="#qt" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="qapplication">
+<h2>QApplication<a class="headerlink" href="#qapplication" title="Permalink to this headline">¶</a></h2>
+<p>Qt アプリケーションを作成するには、まず <cite>QApplication</cite> のインスタンスを作成し、
+GUI 部品を初期化してから、 QApplication.exec_() を呼び出します。</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PySide.QtGui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PySide.QtCore</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+
+    <span class="c"># GUI オブジェクトの生成</span>
+    <span class="n">widget</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s">&quot;OK&quot;</span><span class="p">)</span>
+    <span class="n">widget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c"># メイン イベントループを開始する</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+<div class="section" id="id1">
+<h3>Qt アプリケーションの終了<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>OK ボタンを押下した際にアプリケーションを終了するように修正します。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ボタンを押下した際に、アプリケーションを終了する</span>
+<span class="n">widget</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>上記のコードでは、Qt のシグナルとスロットを使用しています。</p>
+</div>
+<div class="section" id="id2">
+<h3>シグナル と スロット<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>QPushButton には clicked シグナルが定義されています。
+（正確には QPushButton の親クラスの QAbstractButton に clicked シグナルが定義されています）</p>
+<p>このシグナルを、QApplication の quit スロットに接続することで、
+QPushButton が押下されたときに、QApplication の quit スロットが起動し、
+アプリケーションが終了します。</p>
+<p>Qt のオブジェクトは、イベント発生時にトリガされる「シグナル」と、
+トリガされたシグナルを受信して処理を行う「スロット」を持ちます。
+シグナルとスロットは、それぞれ引数を持ち、同じ引数をもつシグナルとスロットを接続することができます。</p>
+<p>オブジェクトがどのようなシグナルとスロットを持つかどうかはドキュメントに記載されています。</p>
+<p>シグナル signal とスロット slot を接続するには、</p>
+<p><tt class="docutils literal"><span class="pre">sender.signal.connect(receiver.slot)</span></tt> のように記載します。</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>メインウィンドウの作成<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>次は、メニューをもつウィンドウを表示してみましょう。</p>
+<div class="section" id="id4">
+<h3>メニューの追加<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30</pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PySide.QtGui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">PySide.QtCore</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+
+    <span class="n">window</span> <span class="o">=</span> <span class="n">QMainWindow</span><span class="p">()</span>
+
+    <span class="c"># メニューの追加</span>
+    <span class="c">#   1. メニューバーを取得する</span>
+    <span class="n">menubar</span> <span class="o">=</span> <span class="n">window</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span>
+
+    <span class="c">#   2. File メニューを追加する</span>
+    <span class="n">filemenu</span> <span class="o">=</span> <span class="n">menubar</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s">&quot;&amp;File&quot;</span><span class="p">)</span>
+
+    <span class="c">#   3. File メニューに、Exit メニュー項目を追加する</span>
+    <span class="n">exit_action</span> <span class="o">=</span> <span class="n">filemenu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s">&quot;&amp;Exit&quot;</span><span class="p">)</span>
+
+    <span class="c">#   4. メニュー項目の動作を指定する</span>
+    <span class="n">exit_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">quit</span><span class="p">)</span>
+
+    <span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c"># メイン イベントループを開始する</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</td></tr></table></div>
+<p>メニューを持つウィンドウを作成するには、QMainWindow を使用します。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">window</span> <span class="o">=</span> <span class="n">QMainWindow</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>メニューを追加するには、</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>QMainWindow.menuBar() を呼び出し、QMenuBar のインスタンスを取得する</li>
+<li>QMenuBar.addMenu(string) を呼び出し、メニューを追加する。</li>
+<li>追加したメニューの QMenu.addAction(string) を呼び出し、メニュー項目を追加する。</li>
+<li>QAction オブジェクトのシグナルを接続し、メニュー押下時の動作を指定する。</li>
+</ol>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="index.html">PySide samples 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Osamu NAKAMURA.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
