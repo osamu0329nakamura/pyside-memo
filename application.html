@@ -8,8 +8,8 @@
     
     <title>Qt アプリケーションの作成 &mdash; PySide samples 0.0.1 documentation</title>
     
-    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -49,6 +49,9 @@
 <li><a class="reference internal" href="#id4">メニューの追加</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#id5">QApplication の取得</a></li>
+<li><a class="reference internal" href="#id6">アプリケーションの終了</a></li>
+<li><a class="reference internal" href="#id7">アプリケーションの補足</a></li>
 </ul>
 </li>
 </ul>
@@ -225,6 +228,19 @@ QPushButton が押下されたときに、QApplication の quit スロットが�
 </div></blockquote>
 </div>
 </div>
+<div class="section" id="id5">
+<h2>QApplication の取得<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>QCoreApplication.instance() を呼び出すと、アプリケーションのインスタンスを取得できます。</p>
+</div>
+<div class="section" id="id6">
+<h2>アプリケーションの終了<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>QCoreApplication.quit() スロットを呼び出すことで、アプリケーションを終了できます。</p>
+</div>
+<div class="section" id="id7">
+<h2>アプリケーションの補足<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>QCoreApplication.aboutToQuit シグナルを補足することで、アプリケーション終了時の
+処理を記述することができます。</p>
+</div>
 </div>
 
 
@@ -244,7 +260,7 @@ QPushButton が押下されたときに、QApplication の quit スロットが�
     </div>
     <div class="footer">
         &copy; Copyright 2015, Osamu NAKAMURA.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>
