@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>QMainWindow – メインウィンドウ &mdash; PySide samples 0.0.1 documentation</title>
+    <title>QStyledItemDelegate – QTableView のセルの表示をカスタマイズする &mdash; PySide samples 0.0.1 documentation</title>
     
     <link rel="stylesheet" href="../static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
@@ -24,8 +24,7 @@
     <script type="text/javascript" src="../static/underscore.js"></script>
     <script type="text/javascript" src="../static/doctools.js"></script>
     <link rel="top" title="PySide samples 0.0.1 documentation" href="../index.html" />
-    <link rel="next" title="QTableView – テーブル" href="tableview.html" />
-    <link rel="prev" title="Qt アプリケーションの作成" href="../application.html" /> 
+    <link rel="prev" title="QTableView – テーブル" href="tableview.html" /> 
   </head>
   <body>
     <div class="related">
@@ -36,32 +35,18 @@
              accesskey="I">index</a></li>
         <li class="right" >
           <a href="tableview.html" title="QTableView – テーブル"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="../application.html" title="Qt アプリケーションの作成"
              accesskey="P">previous</a> |</li>
         <li><a href="../index.html">PySide samples 0.0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">QMainWindow &#8211; メインウィンドウ</a><ul>
-<li><a class="reference internal" href="#id1">メニューの作成</a></li>
-</ul>
-</li>
-</ul>
-
   <h4>Previous topic</h4>
-  <p class="topless"><a href="../application.html"
-                        title="previous chapter">Qt アプリケーションの作成</a></p>
-  <h4>Next topic</h4>
   <p class="topless"><a href="tableview.html"
-                        title="next chapter">QTableView &#8211; テーブル</a></p>
+                        title="previous chapter">QTableView &#8211; テーブル</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="../_sources/gui/mainwindow.txt"
+    <li><a href="../_sources/gui/delegate.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -85,22 +70,25 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="qmainwindow">
-<h1>QMainWindow &#8211; メインウィンドウ<a class="headerlink" href="#qmainwindow" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="id1">
-<h2>メニューの作成<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># self: QMainWindow</span>
+  <div class="section" id="qstyleditemdelegate-qtableview">
+<h1>QStyledItemDelegate &#8211; QTableView のセルの表示をカスタマイズする<a class="headerlink" href="#qstyleditemdelegate-qtableview" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">PySide.QtGui</span> <span class="kn">import</span> <span class="n">QStyledItemDelegate</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
-<span class="n">menubar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">menuBar</span><span class="p">()</span>                     <span class="c"># menubar     : QMenuBar</span>
-<span class="n">filemenu</span> <span class="o">=</span> <span class="n">menubar</span><span class="o">.</span><span class="n">addMenu</span><span class="p">(</span><span class="s">&quot;&amp;File&quot;</span><span class="p">)</span>          <span class="c"># filemenu    : QMenu</span>
-<span class="n">open_action</span> <span class="o">=</span> <span class="n">filemenu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s">&quot;&amp;Open&quot;</span><span class="p">)</span>    <span class="c"># open_action : QAction</span>
+<span class="k">class</span> <span class="nc">DateTimeItemDelegate</span><span class="p">(</span><span class="n">QStyledItemDelegate</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">format</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">QStyledItemDelegate</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">format</span> <span class="o">=</span> <span class="n">format</span>
 
-<span class="k">def</span> <span class="nf">on_open</span><span class="p">():</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;open&quot;</span><span class="p">)</span>
-
-<span class="n">open_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">on_open</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">displayText</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">locale</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s">&quot;&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 </pre></div>
-</div>
 </div>
 </div>
 
@@ -118,9 +106,6 @@
              >index</a></li>
         <li class="right" >
           <a href="tableview.html" title="QTableView – テーブル"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="../application.html" title="Qt アプリケーションの作成"
              >previous</a> |</li>
         <li><a href="../index.html">PySide samples 0.0.1 documentation</a> &raquo;</li> 
       </ul>
