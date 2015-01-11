@@ -1,0 +1,81 @@
+QTreeView -- ツリービュー
+#####################################
+
+
+QTreeWidget
+===============
+
+簡単なツリー表示であれば、QTreeWidget を使用するとよい。
+
+
+TreeModel の自作
+=================
+
+- root (model.index(0, 0, QModelIndex()))
+  - child1 (model.index(0, 0, model.index(0, 0)))
+  - child2 (model.index(1, 0, model.index(0, 0)))
+
+以下のメソッドを実装する。
+
+- ``rowCount(index=QModelIndex())``
+- ``columnCount(index=QModelIndex())``
+- ``data(index, role)``
+- ``index(row, column, parent=QModelIndex())``
+- ``parent(index) : QModelIndex``
+
+QModelIndex
+-----------
+
+QModelIndex は、 ``QAbstractItemModel.createIndex(row, column, data)`` で作成する。
+
+index.internalPointer() または index.internalId() で関連付けたデータを取得する。
+
+data に int や bool を与えて、internalPointer() を呼び出すと、クラッシュするため注意が必要。
+
+rowCount の実装
+----------------
+
+rowCount(index=QModelIndex()) -> 1 (トップレベルの要素数)
+
+
+columnCount の実装
+------------------
+
+columnCount(index=QModelIndex())
+
+ツリーの深さに関係なくカラムが一定なら、index の値によらず固定の数値を返すとよい::
+
+   def columnCount(index):
+       return 2
+
+index の実装
+------------
+
+::
+
+   def index(row, column, parent = QModelIndex()) -> QModelIndex
+
+createIndex(row, column, data) を使用する。
+
+parent.isValid() が False ならば、トップレベルの要素
+
+parent.isValid() が True ならば、トップレベルより下の要素なので、
+
+parent.internalPointer() で親要素に対応するオブジェクトを取得して、
+そのオブジェクと、row、column から対応する子要素を取得する。
+
+その要素を data に指定して、 createIndex(row, column, data) を呼び出す。
+
+parent の実装
+--------------
+
+::
+
+   def parent(index) -> QModelIndex:
+
+createIndex(row, column, data) を使用して返す。
+
+注意：index.parent() を呼び出してはならない。無限ループする。
+
+
+

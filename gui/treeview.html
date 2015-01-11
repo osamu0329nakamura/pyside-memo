@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>QTreeView – ツリービュー &mdash; PySide samples 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../static/jquery.js"></script>
+    <script type="text/javascript" src="../static/underscore.js"></script>
+    <script type="text/javascript" src="../static/doctools.js"></script>
+    <link rel="top" title="PySide samples 0.0.1 documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../index.html">PySide samples 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">QTreeView &#8211; ツリービュー</a><ul>
+<li><a class="reference internal" href="#qtreewidget">QTreeWidget</a></li>
+<li><a class="reference internal" href="#treemodel">TreeModel の自作</a><ul>
+<li><a class="reference internal" href="#qmodelindex">QModelIndex</a></li>
+<li><a class="reference internal" href="#rowcount">rowCount の実装</a></li>
+<li><a class="reference internal" href="#columncount">columnCount の実装</a></li>
+<li><a class="reference internal" href="#index">index の実装</a></li>
+<li><a class="reference internal" href="#parent">parent の実装</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/gui/treeview.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="qtreeview">
+<h1>QTreeView &#8211; ツリービュー<a class="headerlink" href="#qtreeview" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="qtreewidget">
+<h2>QTreeWidget<a class="headerlink" href="#qtreewidget" title="Permalink to this headline">¶</a></h2>
+<p>簡単なツリー表示であれば、QTreeWidget を使用するとよい。</p>
+</div>
+<div class="section" id="treemodel">
+<h2>TreeModel の自作<a class="headerlink" href="#treemodel" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>root (model.index(0, 0, QModelIndex()))
+- child1 (model.index(0, 0, model.index(0, 0)))
+- child2 (model.index(1, 0, model.index(0, 0)))</li>
+</ul>
+<p>以下のメソッドを実装する。</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">rowCount(index=QModelIndex())</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">columnCount(index=QModelIndex())</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">data(index,</span> <span class="pre">role)</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">index(row,</span> <span class="pre">column,</span> <span class="pre">parent=QModelIndex())</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">parent(index)</span> <span class="pre">:</span> <span class="pre">QModelIndex</span></tt></li>
+</ul>
+<div class="section" id="qmodelindex">
+<h3>QModelIndex<a class="headerlink" href="#qmodelindex" title="Permalink to this headline">¶</a></h3>
+<p>QModelIndex は、 <tt class="docutils literal"><span class="pre">QAbstractItemModel.createIndex(row,</span> <span class="pre">column,</span> <span class="pre">data)</span></tt> で作成する。</p>
+<p>index.internalPointer() または index.internalId() で関連付けたデータを取得する。</p>
+<p>data に int や bool を与えて、internalPointer() を呼び出すと、クラッシュするため注意が必要。</p>
+</div>
+<div class="section" id="rowcount">
+<h3>rowCount の実装<a class="headerlink" href="#rowcount" title="Permalink to this headline">¶</a></h3>
+<p>rowCount(index=QModelIndex()) -&gt; 1 (トップレベルの要素数)</p>
+</div>
+<div class="section" id="columncount">
+<h3>columnCount の実装<a class="headerlink" href="#columncount" title="Permalink to this headline">¶</a></h3>
+<p>columnCount(index=QModelIndex())</p>
+<p>ツリーの深さに関係なくカラムが一定なら、index の値によらず固定の数値を返すとよい:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">columnCount</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="index">
+<h3>index の実装<a class="headerlink" href="#index" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>def index(row, column, parent = QModelIndex()) -&gt; QModelIndex
+</pre></div>
+</div>
+<p>createIndex(row, column, data) を使用する。</p>
+<p>parent.isValid() が False ならば、トップレベルの要素</p>
+<p>parent.isValid() が True ならば、トップレベルより下の要素なので、</p>
+<p>parent.internalPointer() で親要素に対応するオブジェクトを取得して、
+そのオブジェクと、row、column から対応する子要素を取得する。</p>
+<p>その要素を data に指定して、 createIndex(row, column, data) を呼び出す。</p>
+</div>
+<div class="section" id="parent">
+<h3>parent の実装<a class="headerlink" href="#parent" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>def parent(index) -&gt; QModelIndex:
+</pre></div>
+</div>
+<p>createIndex(row, column, data) を使用して返す。</p>
+<p>注意：index.parent() を呼び出してはならない。無限ループする。</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../index.html">PySide samples 0.0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Osamu NAKAMURA.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
