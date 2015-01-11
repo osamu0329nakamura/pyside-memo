@@ -11,7 +11,10 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   gui/*
+   application
+   gui/mainwindow
+   gui/tableview
+   gui/delegate
 
 
 Indices and tables
